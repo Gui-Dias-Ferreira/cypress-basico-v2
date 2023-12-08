@@ -222,7 +222,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         //   })
     })
 
-    it.only('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', function () {
+    it('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', function () {
         //pegando dentro do diretório /fixture o arquivo 'example.json' e dando um apelido no .as()
         cy.fixture('example.json').as('sampleFile')
         cy.get('input[id="file-upload"]')
@@ -231,5 +231,23 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             expect($input[0].files[0].name).to.be.equal('example.json')
           })
     })
+
+    //SEÇÃO 8: Lidando com links que abrem em outra aba do navegador
+
+    //Exercicio 
+    it('verifica que a política de privacidade abre em outra aba sem a necessidade de um clique', function () {
+        cy.get('#privacy a')
+          .should('have.attr', 'target', '_blank') //have.attr (deve ter no atributo) 'nome_propriedade', 'valor_da_propriedade'
+    })
+    
+    it('acessa a página da política de privacidade removendo o target e então clicando no link', function () {
+        cy.get('#privacy a')
+          .invoke('removeAttr', 'target')
+          .click()
+        
+        cy.contains('Talking About Testing').should('be.visible')
+    })
+
+    
   })
   
