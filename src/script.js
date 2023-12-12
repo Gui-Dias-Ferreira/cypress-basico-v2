@@ -60,7 +60,7 @@ function showAndHideErrorMessage() {
   errorMessage.style.display = 'block
   scroll(0,0)
   hideMessageAfterTimeout(errorMessage)
-  return
+
 }
 
 function hideMessageAfterTimeout(element) {
