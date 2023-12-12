@@ -5,7 +5,8 @@ import '../support/commands'
 import example from '../fixtures/example.json'
 
 describe('Central de Atendimento ao Cliente TAT', function() {
-    
+    const THREE_SECONDS_IN_MS = 3000
+
     //antes de cada teste execute o que está dentro desse beforeEach(), é o que esse bloco faz.
     beforeEach(() => {
         cy.visit("./src/index.html")
@@ -16,7 +17,10 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             .should('be.equal', 'Central de Atendimento ao Cliente TAT');
     })
 
-    it('preenche os campos obrigatórios e envia o formulário', function () {
+    it.only('preenche os campos obrigatórios e envia o formulário', function () {
+
+        cy.clock()
+
         cy.get('input[id="firstName"]')
             .type('Guilherme') // escrevendo no input
             .should('have.value', 'Guilherme'); // criando uma assertiva, para validar a ação da escrita
@@ -40,8 +44,14 @@ describe('Central de Atendimento ao Cliente TAT', function() {
 
         cy.contains('button', 'Enviar')
             .click()
-            .get('span[class="success"]')
+        
+        cy.get('.success')
             .should('be.visible')
+
+        cy.tick(THREE_SECONDS_IN_MS)
+
+        cy.get('.success')
+            .should('not.be.visible')
     })
 
     //EXERCICIO 2
