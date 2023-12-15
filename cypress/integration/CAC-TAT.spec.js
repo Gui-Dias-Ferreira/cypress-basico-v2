@@ -250,13 +250,16 @@ describe('Central de Atendimento ao Cliente TAT', function() {
           .should('have.attr', 'target', '_blank') //have.attr (deve ter no atributo) 'nome_propriedade', 'valor_da_propriedade'
     })
     
-    it('acessa a página da política de privacidade removendo o target e então clicando no link', function () {
-        cy.get('#privacy a')
-          .invoke('removeAttr', 'target')
-          .click()
-        
-        cy.contains('Talking About Testing').should('be.visible')
-    })
+    // aqui está rodando o mesmo teste 5 vezes.
+    Cypress._.times(4, () => {
+        it.only('acessa a página da política de privacidade removendo o target e então clicando no link', function () {
+            cy.get('#privacy a')
+              .invoke('removeAttr', 'target')
+              .click()
+            
+            cy.contains('Talking About Testing').should('be.visible')
+        })
+    })   
 
     
   })
