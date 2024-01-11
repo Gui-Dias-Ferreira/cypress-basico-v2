@@ -148,6 +148,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     //EXERCICIO 7
     it('envia o formuário com sucesso usando um comando customizado', function() {
         cy.fillMandatoryFieldsAndSubmit()
+        
 
         cy.get('.success').should('be.visible')
     })
@@ -294,6 +295,15 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             expect(statusText).to.equal('OK')
             expect(body).to.include('CAC TAT')
           })
+    })
+
+    it.only('encontra o gato escondido', function () {
+        cy.get('#cat')
+          .should('be.not.visible')
+          .invoke('show')
+          .should('be.visible')
+          .invoke('hide')
+          .should('be.not.visible')
     })
   })
   
